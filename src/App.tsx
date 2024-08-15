@@ -1,25 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import Header from './components/Header';
+import './index.css';
 import './App.css';
 
-function App() {
+function App(): React.ReactElement {
+  const title: string = 'Time in Calculation'
+  const tabTitles: string[] = ['Home', 'Chronology', 'Eclipse', 'Time'];
+  const [activeTab, setActiveTab] = useState<number>(0);
+
+  const handleTabClick = (tab: number) => {
+    setActiveTab(tab);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header title={title} tabs={tabTitles} activeTab={activeTab} onTabClick={handleTabClick} />
+    </>
   );
 }
 
