@@ -1,7 +1,7 @@
 import React from 'react';
 import '../App.css';
 
-function Landing(): React.ReactElement {
+function LandingSection(): React.ReactElement {
   return (
     <section className="landing">
       <img
@@ -13,4 +13,4 @@ function Landing(): React.ReactElement {
   );
 }
 
-export default Landing;
+export default LandingSection;
