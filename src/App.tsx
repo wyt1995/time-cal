@@ -1,21 +1,36 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { BrowserRouter, Route, Routes, Navigate, useParams } from 'react-router-dom';
 import Header from './components/Header';
+import LandingSection from "./components/LandingSection";
+import MainSection from "./components/MainSection";
+import Footer from "./components/Footer";
 import './index.css';
 import './App.css';
 
-function App(): React.ReactElement {
+function AppContent(): React.ReactElement {
   const title: string = 'Time in Calculation'
-  const tabTitles: string[] = ['Home', 'Chronology', 'Eclipse', 'Time'];
-  const [activeTab, setActiveTab] = useState<number>(0);
-
-  const handleTabClick = (tab: number) => {
-    setActiveTab(tab);
-  }
+  const tabTitles: string[] = ['Home', 'Calendar', 'Eclipse', 'Time'];
+  const { tab } = useParams<{ tab?: string }>();
+  const activeTab = tab || '';
 
   return (
     <>
-      <Header title={title} tabs={tabTitles} activeTab={activeTab} onTabClick={handleTabClick} />
+      <Header title={title} tabs={tabTitles} activeTab={activeTab} />
+      <LandingSection />
+      <MainSection activeTab={activeTab} />
+      <Footer />
     </>
+  );
+}
+
+function App(): React.ReactElement {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/:tab?" element={<AppContent />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 import '../App.css';
 
 interface HeaderProps {
   title: string;
   tabs: string[];
-  activeTab: number;
-  onTabClick: (index: number) => void;
+  activeTab: string;
 }
 
-function Header({ title, tabs, activeTab, onTabClick }: HeaderProps): React.ReactElement {
+function Header({ title, tabs, activeTab }: HeaderProps): React.ReactElement {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
 
@@ -37,12 +37,11 @@ function Header({ title, tabs, activeTab, onTabClick }: HeaderProps): React.Reac
           <ul>
             {tabs.map((tab, index) => (
               <li key={index}>
-                <a href={tab === 'Home' ? '#' : `#${tab.toLowerCase()}`}
-                   className={`${activeTab === index ? 'active-tab' : ''}`}
-                   onClick={() => onTabClick(index)}
+                <Link to={tab === 'Home' ? '/' : `/${tab.toLowerCase()}`}
+                   className={`${activeTab === tab ? 'active-tab' : ''}`}
                 >
                   {tab}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
