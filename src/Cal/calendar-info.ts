@@ -1,4 +1,4 @@
-interface CalendarInfo {
+export interface CalendarInfo {
   name: string,
   name_ch: string,
   era: string,
@@ -8,7 +8,7 @@ interface CalendarInfo {
 
 export const CalendarsInfo: Array<CalendarInfo> = [
   {
-    name: 'YellowEmperor',
+    name: 'HuangDi',
     name_ch: '黄帝曆',
     era: 'Warring States',
     author: null,
@@ -357,13 +357,5 @@ export const CalendarsInfo: Array<CalendarInfo> = [
     era: 'Ming',
     author: 'Yuan Tong',
     year: 1384,
-  },
-
-  {
-    name: 'Modern',
-    name_ch: '現代',
-    era: 'modern',
-    author: null,
-    year: 2000,
   },
 ]
