@@ -5,7 +5,7 @@ interface ResultProps {
   years: number[];
 }
 
-function ResultSection({ calendars, years }: ResultProps): React.ReactElement {
+function CalResult({ calendars, years }: ResultProps): React.ReactElement {
   console.log(calendars);
   console.log(years);
   return (
@@ -13,4 +13,4 @@ function ResultSection({ calendars, years }: ResultProps): React.ReactElement {
   );
 }
 
-export default ResultSection;
+export default CalResult;
