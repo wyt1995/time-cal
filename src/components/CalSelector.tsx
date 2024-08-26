@@ -1,19 +1,14 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import styles from "./Calendar.module.css";
-import {CalendarInfo} from "../Cal/calendar-info";
+import {CalendarInfo, CalendarsInfo} from "../Cal/calendar-info";
 
 interface CalSelectorProps {
   yearStart: number | undefined;
   setYearStart: (year: number | undefined) => void;
   yearEnd: number | undefined;
   setYearEnd: (year: number | undefined) => void;
-  calendarOptions: Array<CalendarInfo>;
   selectedCalendars: Array<string>;
   setSelectedCalendars: (selectedCalendars: Array<string>) => void;
-  selectInput: string;
-  setSelectInput: (val: string) => void;
-  isDropDown: boolean;
-  setIsDropDown: (isDropDown: boolean) => void;
   isSubmit: boolean;
   setIsSubmit: (isSubmit: boolean) => void;
 }
@@ -22,12 +17,13 @@ function CalSelector(props: CalSelectorProps): React.ReactElement {
   const {
     yearStart, setYearStart,
     yearEnd, setYearEnd,
-    calendarOptions,
     selectedCalendars, setSelectedCalendars,
-    selectInput, setSelectInput,
-    isDropDown, setIsDropDown,
     isSubmit, setIsSubmit,
   } = props;
+
+  const [calendarOptions] = useState<Array<CalendarInfo>>(CalendarsInfo);
+  const [selectInput, setSelectInput] = useState<string>('');
+  const [isDropDown, setIsDropDown] = useState<boolean>(false);
 
   const dropDownRef = useRef<HTMLUListElement | null>(null);
   const selectedRef = useRef<HTMLDivElement | null>(null);
@@ -139,6 +135,7 @@ function CalSelector(props: CalSelectorProps): React.ReactElement {
                onClick={() => setIsDropDown(!isDropDown)}
                onBlur={handleBlur}
         />
+
         {isDropDown && (
           <ul ref={dropDownRef} onBlur={handleBlur} tabIndex={-1}>
             {calendarOptions
@@ -154,6 +151,7 @@ function CalSelector(props: CalSelectorProps): React.ReactElement {
             }
           </ul>
         )}
+
         <div className={styles.selectedContainer} ref={selectedRef}>
           {selectedCalendars.map((option: string) => (
             <div key={option} className={styles.selected}>

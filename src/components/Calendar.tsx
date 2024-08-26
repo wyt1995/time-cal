@@ -1,16 +1,12 @@
 import React, {useState} from "react";
 import CalSelector from "./CalSelector";
 import ResultSection from "./ResultSection";
-import {CalendarInfo, CalendarsInfo} from "../Cal/calendar-info";
 import styles from "./Calendar.module.css";
 
 function Calendar(): React.ReactElement {
   const [yearStart, setYearStart] = useState<number>();
   const [yearEnd, setYearEnd] = useState<number>();
-  const [calendarOptions] = useState<Array<CalendarInfo>>(CalendarsInfo);
   const [selectedCalendars, setSelectedCalendars] = useState<Array<string>>([]);
-  const [selectInput, setSelectInput] = useState<string>('');
-  const [isDropDown, setIsDropDown] = useState<boolean>(false);
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
 
   return (
@@ -20,10 +16,7 @@ function Calendar(): React.ReactElement {
 
       <CalSelector yearStart={yearStart} setYearStart={setYearStart}
                    yearEnd={yearEnd} setYearEnd={setYearEnd}
-                   calendarOptions={calendarOptions}
                    selectedCalendars={selectedCalendars} setSelectedCalendars={setSelectedCalendars}
-                   selectInput={selectInput} setSelectInput={setSelectInput}
-                   isDropDown={isDropDown} setIsDropDown={setIsDropDown}
                    isSubmit={isSubmit} setIsSubmit={setIsSubmit}
       />
 
