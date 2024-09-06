@@ -35,10 +35,8 @@ abstract class QuarterRemainder {
    * @returns the year attribute that can be used for display.
    */
   public calculate(): Year {
-    const year_diff = this.year.years_from_origin();
-    const year_into_bu = (year_diff % this.era_factor) % this.bu_factor;
-    this.set_year_name(year_diff);
-    this.set_leap_year(year_into_bu);
+    this.set_year_name();
+    this.set_leap_year();
     this.calculate_solar_qi();
     this.calculate_lunar_months();
     this.year.set_intercalary_month();
@@ -47,19 +45,18 @@ abstract class QuarterRemainder {
 
   /**
    * Set the sexagenary year number for the year attribute.
-   * @param year_diff the number of years counted from the high origin.
    */
-  private set_year_name(year_diff: number): void {
-    const years_into_era = year_diff % this.origin_factor;
+  protected set_year_name(): void {
+    const years_into_era = this.year.years_from_origin() % this.origin_factor;
     const year_remainder = (years_into_era + this.high_origin_60) % 60;
     this.year.set_year_name(year_remainder);
   }
 
   /**
    * Set the is_leap attribute to true if there is an intercalary month in this year.
-   * @param year_into_bu the accumulated year number in the current bu.
    */
-  private set_leap_year(year_into_bu: number): void {
+  private set_leap_year(): void {
+    const year_into_bu = this.year.years_from_origin() % this.era_factor % this.bu_factor;
     const intercalation_remainder = year_into_bu * this.rule_months % this.intercalation_factor;
     this.year.set_is_leap(intercalation_remainder >= 12);
   }
