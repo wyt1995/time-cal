@@ -52,7 +52,7 @@ class Year {
 
   public set_year_name(year_name: number) {
     assert(Number.isInteger(year_name));
-    assert(year_name >= 1 && year_name <= 60);
+    assert(year_name >= 0 && year_name < 60);
     this.year_name = year_name;
   }
 

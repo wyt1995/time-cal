@@ -22,6 +22,7 @@ abstract class QuarterRemainder {
   protected high_origin_ad: number = -2760366;
   protected high_origin_60: number = 50;
   protected first_month: number = 0;
+  protected first_day: number = 0;
   protected year: Year;
   
   protected constructor(year_ce: number, cal_name: string) {
@@ -65,7 +66,7 @@ abstract class QuarterRemainder {
 
   public winter_solstice(): number {
     const year_into_era = this.year.years_from_origin() % this.era_factor;
-    const accumulated_days = year_into_era * this.tropical_year;
+    const accumulated_days = year_into_era * this.tropical_year + this.first_day;
     return accumulated_days % 60;
   }
 
@@ -78,6 +79,10 @@ abstract class QuarterRemainder {
     this.year.set_qi_date(qi_dates, this.qi_factor);
   }
 
+  public first_month_index(): number {
+    return this.first_month;
+  }
+
   public standard_month(): number {
     const year_diff = this.year.years_from_origin();
     const bu_number = Math.floor(year_diff % this.era_factor / this.bu_factor);
@@ -86,7 +91,7 @@ abstract class QuarterRemainder {
     const year_into_bu = (year_diff % this.era_factor) % this.bu_factor;
     const month_into_bu = Math.floor(year_into_bu * this.rule_months / this.intercalation_factor)
     const days_into_bu = month_into_bu * this.lunar_month;
-    return (days_into_bu % 60 + bu_name) % 60;
+    return (days_into_bu % 60 + bu_name + this.first_day) % 60;
   }
 
   public calculate_lunar_months(): void {
