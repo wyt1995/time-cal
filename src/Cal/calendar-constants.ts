@@ -85,7 +85,7 @@ export const CalendarConstants = {
     origin_factor: 4560,
     high_origin_ad: -2759875,
     high_origin_60: 2,
-    first_month: 2,
+    first_month: 0,
   },
 
   Yin: {
