@@ -16,6 +16,13 @@ class Year {
   protected medial_qi_time: number[][];
   protected nodal_qi_time: number[][];
 
+  /**
+   * Constructor for a year instance. Only year number and calendar name are accurate at this point;
+   * other attributes will be updated by the calendar compute method.
+   * @param year the CE number of the year in astronomical reckoning.
+   * @param diff the number of years from the high origin.
+   * @param name the name of calendar on which computation is based.
+   */
   public constructor(year: number, diff: number, name: string) {
     this.year_ce = year;
     this.cal_name = name;
@@ -64,6 +71,13 @@ class Year {
     return this.is_leap;
   }
 
+  /**
+   * Handle qi time data in a format that is ready for display.
+   * Each qi is represented by a raw number, a greater remainder for the sexagenary day cycle,
+   * and a lesser remainder for the fractional part of the day.
+   * @param qi an array of floats.
+   * @param factor the denominator of the day fraction.
+   */
   public set_qi_date(qi: number[], factor: number): void {
     assert(qi.length === 24);
     for (let i = 0; i < qi.length; i++) {
@@ -88,6 +102,13 @@ class Year {
     return Object.freeze(this.nodal_qi_time.map(list => Object.freeze(list)));
   }
 
+  /**
+   * Handle new-moon and full-moon time data in a format that is ready for display.
+   * Each date is represented by a raw number, a greater remainder for the sexagenary day cycle,
+   * and a lesser remainder for the fractional part of the day.
+   * @param moon_dates an array of floats.
+   * @param factor the denominator of the month fraction.
+   */
   public set_moon_dates(moon_dates: number[], factor: number): void {
     for (let i = 0; i < moon_dates.length; i++) {
       const curr_month: number = moon_dates[i];
@@ -111,6 +132,11 @@ class Year {
     return Object.freeze(this.full_moon_time);
   }
 
+  /**
+   * Set the index of the intercalary month of the year.
+   * This index is set to 0 if it is not a leap year; otherwise, it is the same as the array index.
+   * Hence, this number can be directly read as "intercalary i-th month".
+   */
   public set_intercalary_month(): void {
     this.checkRep();
     if (!this.is_leap) {
@@ -133,6 +159,10 @@ class Year {
     return this.intercalary_month;
   }
 
+  /**
+   * Check representation by ensuring the number of array elements.
+   * @private this function is called before setting the intercalary month.
+   */
   private checkRep(): void {
     assert(this.medial_qi_time.length === 12);
     assert(this.nodal_qi_time.length === 12);

@@ -61,12 +61,19 @@ abstract class QuarterRemainder {
     this.year.set_is_leap(intercalation_remainder >= 12);
   }
 
+  /**
+   * @return a floating point representation of the winter solstice time.
+   */
   public winter_solstice(): number {
     const year_into_era = this.year.years_from_origin() % this.era_factor;
     const accumulated_days = year_into_era * this.tropical_year + this.first_day;
     return accumulated_days % 60;
   }
 
+  /**
+   * Update all twenty-four qi times by invoking the year instance method.
+   * Only produce raw data; dates and fractions will be computed by the year.
+   */
   public calculate_solar_qi(): void {
     const qi_interval = this.tropical_year / 24;
     const qi_dates = [this.winter_solstice()];
@@ -76,10 +83,17 @@ abstract class QuarterRemainder {
     this.year.set_qi_date(qi_dates, this.qi_factor);
   }
 
+  /**
+   * @return the index of the first month according to the high origin.
+   * Used for the alignment between lunar months and solar medial qi.
+   */
   public first_month_index(): number {
     return this.first_month;
   }
 
+  /**
+   * @return a floating point representation of the new-moon time in the first month.
+   */
   public standard_month(): number {
     const year_diff = this.year.years_from_origin();
     const bu_number = Math.floor(year_diff % this.era_factor / this.bu_factor);
@@ -91,6 +105,10 @@ abstract class QuarterRemainder {
     return (days_into_bu % 60 + bu_name + this.first_day) % 60;
   }
 
+  /**
+   * Update new-moon and full-moon times of all lunar months in the year.
+   * Only produce raw data; dates and fractions will be computed by the year instance method.
+   */
   public calculate_lunar_months(): void {
     const half_month: number = this.lunar_month / 2;
     const total_months: number = this.year.is_leap_year() ? 13 : 12;
