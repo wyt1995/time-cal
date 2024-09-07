@@ -86,7 +86,7 @@ abstract class QuarterRemainder {
     const bu_name = bu_number * (this.month_number % 60) % 60;
 
     const year_into_bu = (year_diff % this.era_factor) % this.bu_factor;
-    const month_into_bu = Math.floor(year_into_bu * this.rule_months / this.intercalation_factor)
+    const month_into_bu = Math.floor(year_into_bu * this.rule_months / this.intercalation_factor);
     const days_into_bu = month_into_bu * this.lunar_month;
     return (days_into_bu % 60 + bu_name + this.first_day) % 60;
   }

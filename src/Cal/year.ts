@@ -69,7 +69,7 @@ class Year {
     for (let i = 0; i < qi.length; i++) {
       const curr_qi: number = qi[i];
       const curr_qi_date: number = Math.floor(curr_qi) % 60;
-      const curr_qi_frac: number = Math.trunc((curr_qi - Math.floor(curr_qi)) * factor);
+      const curr_qi_frac: number = Math.round((curr_qi - Math.floor(curr_qi)) * factor);
       const curr_qi_time: number[] = [curr_qi, curr_qi_date, curr_qi_frac];
 
       if (i % 2 === 0) {
