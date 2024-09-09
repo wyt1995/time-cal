@@ -1,4 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
+import CalResultCtrl from "./CalResultCtrl";
+import styles from './Calendar.module.css';
 
 interface ResultProps {
   calendars: string[];
@@ -6,10 +8,20 @@ interface ResultProps {
 }
 
 function CalResult({ calendars, years }: ResultProps): React.ReactElement {
-  console.log(calendars);
-  console.log(years);
+  const [displayView, setDisplayView] = useState<string>('table');
+  const [displayYear, setDisplayYear] = useState<number>();
+  const [entryNumber, setEntryNumber] = useState<number>(5);
+
   return (
-    <div></div>
+    <div className={styles.resultSection}>
+      <CalResultCtrl
+        calendars={calendars}
+        yearRange={years}
+        onViewChange={setDisplayView}
+        onYearChange={setDisplayYear}
+        onEntryChange={setEntryNumber}
+      />
+    </div>
   );
 }
 
