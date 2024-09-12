@@ -1,8 +1,8 @@
 import React from 'react';
-import Year from "@/Cal/year";
-import CalendarsManager from "@/Cal/calendars-manager";
-import CalDisplayTable from "@/components/CalDisplayTable";
-import CalDisplayTimeline from "@/components/CalDisplayTimeline";
+import Year from "../Cal/year";
+import CalendarsManager from "../Cal/calendars-manager";
+import CalDisplayTable from "../components/CalDisplayTable";
+import CalDisplayTimeline from "../components/CalDisplayTimeline";
 
 interface CalResultDisplayProps {
   calendars: string[],
@@ -10,10 +10,11 @@ interface CalResultDisplayProps {
   displayView: string,
   displayYear: number,
   entryNumber: number,
+  manager: CalendarsManager,
 }
 
 function CalResultDisplay(props: CalResultDisplayProps): React.ReactElement {
-  const {calendars, yearRange, displayView, displayYear, entryNumber} = props;
+  const {calendars, yearRange, displayView, displayYear, entryNumber, manager} = props;
   const [yearStart, yearEnd] = yearRange;
 
   let displayEntry: number = entryNumber;
@@ -21,9 +22,9 @@ function CalResultDisplay(props: CalResultDisplayProps): React.ReactElement {
     displayEntry = 1;
   }
 
-  const manager = new CalendarsManager()
   const results: Array<Year> = [];
-  for (let y = displayYear; y < displayYear + displayEntry && y <= yearEnd; y += 1) {
+  for (let i = displayYear; i < displayYear + displayEntry && i <= yearEnd; i += 1) {
+    let y: number = i;
     if (y === 0) {
       continue;
     }
