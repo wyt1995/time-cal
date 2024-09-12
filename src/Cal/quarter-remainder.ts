@@ -1,3 +1,4 @@
+import Calendar from "./Calendar";
 import Year from "./year";
 
 /**
@@ -5,7 +6,7 @@ import Year from "./year";
  * the official SiFen calendar in the eastern Han, as well as the Grand Inception / Triple Concordance calendar,
  * which can be considered as a variant of the SiFen calendar system.
  */
-abstract class QuarterRemainder {
+abstract class QuarterRemainder implements Calendar {
   protected tropical_year: number = 365.25;
   protected lunar_month: number = 29 + 499 / 940;
   protected year_factor: number = 4;
