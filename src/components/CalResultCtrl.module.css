@@ -46,7 +46,7 @@
   left: 0;
   height: 100%;
   width: 50%;
-  background-color: #3399ff;
+  background-color: var(--blue);
   border-radius: 4px;
   z-index: 1;
   transition: transform 0.3s ease;
