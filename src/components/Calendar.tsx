@@ -6,6 +6,7 @@ import styles from "./Calendar.module.css";
 function Calendar(): React.ReactElement {
   const [years, setYears] = useState<Array<number>>([]);
   const [calendars, setCalendars] = useState<Array<string>>([]);
+  const resultKey = `${years.join('-')}, ${calendars.join('-')}`;
 
   return (
     <div className={styles.cal}>
@@ -15,7 +16,7 @@ function Calendar(): React.ReactElement {
       <CalSelector setSubmittedYears={setYears} setSubmittedCalendars={setCalendars} />
 
       {years.length > 0 && calendars.length > 0 && (
-        <CalResult calendars={calendars} years={years} />
+        <CalResult key={resultKey} calendars={calendars} years={years} />
       )}
     </div>
   );
