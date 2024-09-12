@@ -1,9 +1,8 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {ChevronLeft, ChevronRight, Minus, Plus} from 'lucide-react';
 import styles from './CalResultCtrl.module.css';
 
 interface CalResultCtrlProps {
-  calendars: string[],
   yearRange: number[],
   onViewChange: (view: 'table' | 'timeline') => void;
   onYearChange: (year: number) => void;
@@ -11,7 +10,7 @@ interface CalResultCtrlProps {
 }
 
 function CalResultCtrl(props: CalResultCtrlProps): React.ReactElement {
-  const {calendars, yearRange, onViewChange, onYearChange, onEntryChange} = props;
+  const {yearRange, onViewChange, onYearChange, onEntryChange} = props;
   const [yearStart, yearEnd] = yearRange;
 
   const [view, setView] = useState<'table' | 'timeline'>('table');
@@ -25,11 +24,13 @@ function CalResultCtrl(props: CalResultCtrlProps): React.ReactElement {
     return Math.abs(num).toString() + ` ${year < 0 ? 'BCE': 'CE'}`
   }
 
+  // event handler for the view selection
   const handleViewChange = (newView: 'table' | 'timeline'): void => {
     setView(newView);
     onViewChange(newView);
   };
 
+  // event handlers for the year selection
   const handleYearChange = (newYear: number): void => {
     if (newYear < yearStart || newYear === 0 || newYear > yearEnd) {
       return;
@@ -51,11 +52,17 @@ function CalResultCtrl(props: CalResultCtrlProps): React.ReactElement {
     }
   }
 
+  // event handler for the number of entries
   const handleEntriesChange = (newEntries: number) => {
     setEntries(newEntries);
-    onEntryChange(newEntries);
   };
 
+  // re-render components if user changes the number of entries to be displayed
+  useEffect(() => {
+    onEntryChange(entries);
+  }, [entries, onEntryChange]);
+
+  // construct array from the year range variable
   const yearOptions = Array.from(
     { length: yearRange[1] - yearRange[0] + 1 },
     (_, i) => yearRange[0] + i
