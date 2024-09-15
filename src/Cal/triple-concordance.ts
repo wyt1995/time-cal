@@ -1,5 +1,4 @@
 import QuarterRemainder from "./quarter-remainder";
-import Year from "./year";
 
 class TripleConcordance extends QuarterRemainder {
   protected tropical_year: number = 365 + 385 / 1539;
@@ -45,9 +44,11 @@ class TripleConcordance extends QuarterRemainder {
   }
 
   public standard_month(): number {
-    const year_into_era = this.year.years_from_origin() % this.origin_factor % this.era_factor;
-    const era_name = year_into_era * 8080 % 60;
+    const years_into_origin = this.year.years_from_origin() % this.origin_factor;
+    const era_order = Math.floor(years_into_origin / this.era_factor);
+    const era_name = era_order * 8080 % 60;
 
+    const year_into_era = years_into_origin % this.era_factor;
     const months_into_era = Math.floor(year_into_era * this.rule_months / this.intercalation_factor);
     const days_into_era = months_into_era * this.month_number / this.month_factor;
     return (days_into_era % 60 + era_name) % 60;
