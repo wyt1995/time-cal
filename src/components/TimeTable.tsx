@@ -81,7 +81,8 @@ function TimeTable({yearData, showNumber, showFraction}: TimeTableProps): React.
           } else {
             const greatRemainder: number = rowData[1];
             const lessRemainder: number = rowData[2];
-            const firstLine: string = showNumber ? greatRemainder.toString() : SexagenaryCycle[greatRemainder].name_ch;
+            const cycleName: string = SexagenaryCycle[greatRemainder].name_ch;
+            const firstLine: string = cycleName + `${showNumber ? ` (${greatRemainder + 1})` : ""}`;
             const secondLine: string = showFraction ? lessRemainder.toString() : "";
             row[`month-${index}`] = {
               firstLine: firstLine,
