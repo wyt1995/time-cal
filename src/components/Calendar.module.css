@@ -141,7 +141,7 @@
 
 .resultSection {
   width: 95vw;
-  height: 95vh;
+  min-height: 80vh;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -149,11 +149,26 @@
   gap: 1em;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: visible;
 }
 
 .resultTable {
   text-align: center;
   width: 95%;
+}
+
+.resultTable h3 {
+  margin-top: 20px;
+}
+
+.resultTable:last-child {
+  margin-bottom: 40px;
+}
+
+.divider {
+  width: 96%;
+  border: 1px solid var(--shallowgray);
+  margin-top: 40px;
 }
 
 .switchContainer {

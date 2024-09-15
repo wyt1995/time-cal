@@ -29,8 +29,8 @@ function CalDisplayTable({data}: {data: Array<Year>}): React.ReactElement {
 
       {data.map((yearData, index) => (
           <React.Fragment key={index}>
-            <TimeTable yearData={yearData} showNumber={showNumber} showFraction={showFraction}/>
-            {index < data.length - 1 && <hr style={{border: '1px solid gray'}}/>}
+            <hr className={styles.divider} />
+            <TimeTable yearData={yearData} showNumber={showNumber} showFraction={showFraction} />
           </React.Fragment>
         )
       )}
