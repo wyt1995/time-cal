@@ -69,7 +69,7 @@ function CalDisplayTimeline({data}: {data: Array<Year>}): React.ReactElement {
               {year.medial_qi_times().map((arr: ReadonlyArray<number>, idx: number) => (
                 <div key={`solar-${idx}`}
                      className={styles.eventStyle}
-                     style={{backgroundColor: '#f1c40f', left: `${getPosition(arr[0], len, left, off)}`, top: '165px'}}
+                     style={{backgroundColor: '#f1c40f', left: `${getPosition(arr[0], len, left, off)}`, top: '163px'}}
                      onMouseEnter={(e) => handleMouseEnter(e, arr, 'below')}
                      onMouseLeave={handleMouseLeave}
                 />
